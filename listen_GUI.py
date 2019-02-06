@@ -1,5 +1,6 @@
+## -*- coding: utf-8 -*-
 from Tkinter import Tk, Label, Button, Entry, Checkbutton
-import subprocess
+import voice_recording
 
 
 class MyFirstGUI:
@@ -11,7 +12,7 @@ class MyFirstGUI:
         self.label.pack()
         self.label.place(x=140, y=10)
 
-        self.label_word = Label(master, text="A")
+        self.label_word = Label(master, text="Озвучить: a")
         self.label_word.pack()
         self.label_word.place(x=190, y=40)
 
@@ -31,24 +32,26 @@ class MyFirstGUI:
         self.close_button.pack()
         self.close_button.place(x=250, y=40)
 
+        self.alphabet_english = [x for x in 'abc']
+        self.alphabet_russian = [x for x in 'абв']
+        self.x = voice_recording
+
     def greet(self):
         print("Greetings!")
-        self.label['text'] = '* recording'
-        instruction = 'python voice_recording.py'
-        #subprocess.call("python voice_recording.py a.wav", shell=True)
-        alphabet = 'abcdefghijklmnopqrstuvwxyz'
-        #alphabet = 'a'
-        for number in alphabet:
-            print (number)
-            subprocess.call(instruction + " " + number + ".wav", shell=True)
-
-
-#read_GUI.py
+        if not self.alphabet_english:
+            print("List is empty")
+            self.alphabet_english = [x for x in 'abcdefghijklmnopqrstuvwxyz']
+        print (self.alphabet_english)
+        number = self.alphabet_english.pop(0)
+        print (number)
+        self.x.my_record(number + ".wav")
+        if self.alphabet_english:
+            self.label_word['text'] = "Озвучить: " + self.alphabet_english[0]
+        else:
+            self.label_word['text'] = 'Озвучить: a'
 
 
 root = Tk()
 my_gui = MyFirstGUI(root)
 root.geometry('600x100+200+100')
 root.mainloop()
-
-
