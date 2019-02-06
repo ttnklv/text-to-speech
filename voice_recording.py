@@ -1,17 +1,12 @@
+## -*- coding: utf-8 -*-
 import pyaudio
 import wave
-import sys
-#
-# if len(sys.argv) < 2:
-#     print("Plays a wave file.\n\nUsage: %s filename.wav" % sys.argv[0])
-    # sys.exit(-1)
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 RECORD_SECONDS = 1
-# WAVE_OUTPUT_FILENAME = sys.argv[1]
 
 def my_record(name):
     p = pyaudio.PyAudio()

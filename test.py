@@ -1,8 +1,6 @@
 ## -*- coding: utf-8 -*-
-import subprocess
-# from voice_acting import abc
-import voice_recording
 
-x = voice_recording
-x.abc(1, 2)
-x.my_record("s.wav")
+alphabet_russian = [x for x in unicode("фыва", "utf-8")]
+alphabet_russian1 = [x for x in "фыва", "utf-8"]
+
+print alphabet_russian

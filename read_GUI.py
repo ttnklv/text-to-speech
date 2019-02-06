@@ -19,7 +19,7 @@ class MySecondGUI:
         self.read_button.pack()
         self.read_button.place(x=120, y=40)
 
-        self.close_button = Button(master, width=9, text="Close", command=self.close)
+        self.close_button = Button(master, width=9, text="Close", command=master.quit)
         self.close_button.pack()
         self.close_button.place(x=120, y=70)
 
@@ -28,6 +28,7 @@ class MySecondGUI:
 
 
     def read(self):
+        open("combined.wav", "w")
         os.remove("combined.wav")
         open("combined.wav", "w")
         text = self.text.get("1.0", 'end')
