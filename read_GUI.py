@@ -2,10 +2,13 @@ from Tkinter import Tk, Label, Button, Text, Checkbutton
 from pydub import AudioSegment
 import subprocess
 import os
+import sys
 
 
 class MySecondGUI:
     def __init__(self, master):
+        self.name = sys.argv[1]
+
         self.master = master
         master.title("reading window")
 
@@ -25,30 +28,26 @@ class MySecondGUI:
 
         self.pin = 0
 
-
-
     def read(self):
-        open("combined.wav", "w")
-        os.remove("combined.wav")
-        open("combined.wav", "w")
+        str_audio_name = self.name + "_combined.wav"
+        open(str_audio_name, "w")
+        os.remove(str_audio_name)
+        open(str_audio_name, "w")
         text = self.text.get("1.0", 'end')
         user_text = map(lambda c: c, text)
         print user_text
-        combined = AudioSegment.from_file(user_text[0] + ".wav")
-        combined.export("combined.wav", format='wav')
+        combined = AudioSegment.from_file(self.name + "_" + user_text[0] + ".wav")
+        combined.export(str_audio_name, format='wav')
         user_text.pop(0)
         for number in user_text:
             if number == '\n' or number == ' ':
                 continue
-            sound1 = AudioSegment.from_file("combined.wav")
-            sound2 = AudioSegment.from_file(number + ".wav")
+            sound1 = AudioSegment.from_file(str_audio_name)
+            sound2 = AudioSegment.from_file(self.name + "_" + number + ".wav")
             combined = sound1 + sound2
-            combined.export("combined.wav", format='wav')
-        self.pin = subprocess.call("python voice_acting.py combined.wav", shell=True)
+            combined.export(str_audio_name, format='wav')
+        self.pin = subprocess.call("python voice_acting.py " + str_audio_name, shell=True)
 
-
-    # def close(self):
-        # self.pin.kill()
 
 
 root = Tk()
@@ -56,4 +55,3 @@ my_gui = MySecondGUI(root)
 root.geometry('600x130+200+100')
 
 root.mainloop()
-
