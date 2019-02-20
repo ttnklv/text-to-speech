@@ -1,4 +1,4 @@
-from Tkinter import Tk, Label, Button, Text, Checkbutton
+from Tkinter import Tk, Label, Button, Text
 from pydub import AudioSegment
 import subprocess
 import os
@@ -7,7 +7,10 @@ import sys
 
 class MySecondGUI:
     def __init__(self, master):
-        self.name = sys.argv[1]
+        if len(sys.argv) < 2:
+            self.name = "default"
+        else:
+            self.name = sys.argv[1]
 
         self.master = master
         master.title("reading window")
@@ -35,7 +38,6 @@ class MySecondGUI:
         open(str_audio_name, "w")
         text = self.text.get("1.0", 'end')
         user_text = map(lambda c: c, text)
-        print user_text
         combined = AudioSegment.from_file(self.name + "_" + user_text[0] + ".wav")
         combined.export(str_audio_name, format='wav')
         user_text.pop(0)

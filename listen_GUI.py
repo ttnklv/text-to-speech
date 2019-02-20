@@ -69,7 +69,13 @@ class MyFirstGUI:
         else:
             number = self.alphabet_english.pop(0)
         print (number)
-        self.x.my_record(self.message.get() + "_" + number + ".wav")
+
+        name = "default"
+
+        if self.message.get():
+            name = self.message.get()
+
+        self.x.my_record(name + "_" + number + ".wav")
 
         if self.alphabet_english and self.var.get() == 1:
             self.label_word['text'] = "Vocalize: " + self.alphabet_english[0]
